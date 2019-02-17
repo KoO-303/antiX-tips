@@ -1,0 +1,265 @@
+--------------------------------
+To reload Bash...
+
+To apply the changes, restart bash or reload inputrc, e.g. with Ctrl+x,Ctrl+r.
+
+
+----------------------------------
+Installing i3 Gaps-------
+
+
+cd /path/where/you/want/the/repository
+
+# clone the repository
+git clone https://www.github.com/Airblader/i3 i3-gaps
+cd i3-gaps
+
+# compile & install
+autoreconf --force --install
+rm -rf build/
+mkdir -p build && cd build/
+
+# Disabling sanitizers is important for release versions!
+# The prefix and sysconfdir are, obviously, dependent on the distribution.
+../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
+make
+sudo make install
+
+
+Dependencies for i3 gaps--------
+
+gcc make dh-autoreconf libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev xcb libxcb1-dev libxcb-icccm4-dev libyajl-dev libev-dev libxcb-xkb-dev libxcb-cursor-dev libxkbcommon-dev libxcb-xinerama0-dev libxkbcommon-x11-dev libstartup-notification0-dev libxcb-randr0-dev libxcb-xrm0 libxcb-xrm-dev libxcb-shape0-dev
+
+
+
+-------------------------------
+To stop screen tearing Nvidia
+
+i use Nvidia 
+$ su - # nvidia-settings 
+Open: NVIDIA X Server Settings -> X Server Display Configuration go to Advanced... -> 
+Select Force Full Composition Pipeline set-> ViewPortOut -> 1920x1080+0+0  <<<< what ever your display resolution  is >>>>>>
+Save to X configuration File Done!
+--------------------------------
+To change to the fish shell...
+
+chsh -s /usr/bin/fish koo << your user name..
+
+Then enter password   >Done<  > then you must reboot to load fish...
+
+To switch your default shell back, you can run chsh -s /bin/bash 
+(substituting /bin/bash with /bin/tcsh or /bin/zsh as appropriate).
+
+
+(Never use fish shell for root only user)
+---------------------------------
+
+To make DIR_COLORS
+
+dircolors --print-database > DIR_COLORS
+
+Fix 
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    eval "$(dircolors /etc/DIR_COLORS)"
+
+dircolors --print-database > DIR_COLORS
+
+----------------------------
+$ sudo ./dd-live-usb -f LICENSE 
+Password: 
+===============================================================================
+Starting dd-live-usb
+===============================================================================
+Only one target usb device was found sdd  15G UFD 3.0 Silicon-Power16G
+Will use target device sdd
+                 iso file LICENSE
+            target device sdd
+
+            iso file size        1 MiB
+       target device size    15376 MiB
+-------------------------------------------------------------------------------
+Ready to make a 'dd' live-usb on device sdd
+-------------------------------------------------------------------------------
+                                                                                                                                                      
+Shall we begin?                                                                                                                                       
+  = yes                                                                                                                                               
+  > no                                                                                                                                                
+Press <Enter> to select the highlighted entry                                                                                                         
+Use 'r' to redraw, 'q' to quit                                                                                                                        
+|=================================================================================================================================================>100%
+>> done
+
+-------------------------
+To find broken packages ???
+
+ dpkg -l | grep -v '^ii'
+-------------------------
+Black screen and cursor
+
+Alt+f2 for command line..
+
+
+--------------------------
+inxi commands
+
+inxi -zv7
+
+But you can also use
+
+inxi -Fxz
+
+To show us your repositories.
+
+inxi -r
+
+------------------------
+
+To install with "meson" from the program Directory. 
+
+
+meson . output 
+
+ninja -C output
+
+ninja -C output install
+
+
+
+To install autogen apps
+
+./autogen.sh
+
+To fix the 'Permission Denied' error you need to edit the permissions of your autogen.sh file. 
+Run this command: chmod +x autogen.sh
+
+--------------------
+
+Terminal = antiX-cli-cc press enter > Audio/Visual menu > alsa-set-default-card > enter number (Use your arrow keys to move around)
+
+--------------------
+To refreash fonts cache..
+
+fc-cache
+------------------------
+Read Only Fix
+
+sudo ntfsfix /dev/sda3 <<<< place your drive here
+-------------------------------
+Run this command to anwser YES to all sensors-detect
+
+yes | sudo sensors-detect
+-------------------------------------
+Commandline Antix update
+
+cli-aptiX 
+
+Update keyring antix =root
+
+apt-get update && apt-get install antix-archive-keyring
+--------------------------------------
+There is a kernel module specifically for Thinkpads: thinkpad_acpi.
+You can check to see if it's loaded by running:
+
+lsmod | grep acpi
+
+And the fix commands
+
+sudo modprobe thinkpad_acpi
+
+sudo update-initramfs -u -t
+
+--------------------------------------------
+To find what sensors are being used..
+
+find /sys/class/hwmon/* -exec echo -n "{}: " \; -exec cat {}/name \;
+
+-------------------------------------------------
+To reinstall nvidia drivers after kernel update...
+
+apt install --reinstall nvidia-kernel-dkms
+
+==============
+To install .deb package
+
+sudo dpkg -i = .deb file name
+
+--------------------
+exec --no-startup-id nitrogen --restore
+
+--------------------
+hddtemp with out sudo = chmod u+s /usr/sbin/hddtemp
+
+sudo dpkg-reconfigure hddtemp
+---------------------
+Ranger With urxvt and Dependences
+
+sudo apt-get install highlight atool caca-utils w3m poppler-utilsw
+
+The image preview methods urxvt and urxvt_full can be used with the urxvt terminal and are typically more reliable. They use a special escape sequence to change the background of the terminal in order to render the image.
+
+    Run urxvt with pixbuf support (some operating systems ship it without pixbuf support, but for example ArchLinux has an AUR package called rxvt-unicode-pixbuf which should work)
+    Add the line set preview_images true to your ~/.config/ranger/rc.conf.
+    Add the line set preview_images_method urxvt to your ~/.config/ranger/rc.conf. You can also choose urxvt-full if you would like the image to fill the whole terminal rather than just the preview pane.
+    Restart ranger and navigate to an image file. \o/
+
+Configuration
+
+After startup, ranger creates a directory ~/.config/ranger. To copy the default configuration to this directory issue the following command:
+
+$ ranger --copy-config=all
+
+    rc.conf - startup commands and key bindings
+    commands.py - commands which are launched with :
+    rifle.conf - applications used when a given type of file is launched.
+
+rc.conf only needs to include changes from the default file as both are loaded. For commands.py, if you do not include the whole file, put this line at the top: 
+----------------------
+MX linux
+
+sudo service --status-all
+
+To start service
+
+sudo service mpd start
+
+To check status of service
+
+Code: Select all
+sudo service mpd status
+
+To stop service do
+
+Code: Select all
+sudo service mpd stop
+
+To relaod service (i.e. stop + start ) do
+
+Code: Select all
+sudo service mpd reload
+----------------------
+
+sudo apt-get update
+---------------------
+Update MX linux
+apt update && apt full-upgrade 
+-----------------------
+To add user to group ==
+
+sudo gpasswd -a koo plugdev     [plugdev] = group name
+[sudo] password for koo:
+Adding user koo to group plugdev
+ To make sure this worked, you can list the groups you're a part of like this:
+
+spycellar:~# groups yourname
+
+You should see `audio' as one of those. 
+
+ sudo gpasswd -a mpd audio
+Adding user mpd to group audio
+---------------------
+To find out which fans you have and speed in RPM
+just say no to every thing until you get the reading below then Control C to exit....
+
+sudo pwmconfig
+---------------------
