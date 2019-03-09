@@ -1,4 +1,15 @@
 
+----------------------------------
+To install the Liquorix Kernel
+
+Debian Prerequisites:
+
+sudo apt-get update && sudo apt-get install apt-transport-https && echo -e 'deb http://liquorix.net/debian sid main\ndeb-src http://liquorix.net/debian sid main\n\n# Mirrors:\n#\n# Unit193 - France\n# deb http://mirror.unit193.net/liquorix sid main\n# deb-src http://mirror.unit193.net/liquorix sid main' | sudo tee /etc/apt/sources.list.d/liquorix.list && curl https://liquorix.net/linux-liquorix.pub | sudo apt-key add - && sudo apt-get update
+
+64-bit:
+sudo apt-get install linux-image-liquorix-amd64 linux-headers-liquorix-amd64
+
+
 ------------------------------
 Git from the command line.. 
 
