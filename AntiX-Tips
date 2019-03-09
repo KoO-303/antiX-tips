@@ -1,6 +1,6 @@
 
 ----------------------------------
-To install the Liquorix Kernel
+To install the Liquorix Kernel on antiX
 
 Debian Prerequisites:
 
@@ -8,6 +8,8 @@ sudo apt-get update && sudo apt-get install apt-transport-https && echo -e 'deb 
 
 64-bit:
 sudo apt-get install linux-image-liquorix-amd64 linux-headers-liquorix-amd64
+
+To run on this kernel go to advaned options from grub screen and select Liquorix kernel.
 
 
 ------------------------------
