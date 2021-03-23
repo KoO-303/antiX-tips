@@ -67,13 +67,48 @@ gcc make dh-autoreconf libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev xcb 
 
 
 -------------------------------
-To stop screen tearing Nvidia
+To stop screen tearing Nvidia & ATI
 
-i use Nvidia 
+----- Nvidia -----
 $ su - # nvidia-settings 
 Open: NVIDIA X Server Settings -> X Server Display Configuration go to Advanced... -> 
 Select Force Full Composition Pipeline set-> ViewPortOut -> 1920x1080+0+0  <<<< what ever your display resolution  is >>>>>>
 Save to X configuration File Done!
+
+First = sudo nvidia-settings
+Second = save the xorg.conf file somewhere.
+Third = rename xorg.conf to 20_nvidia.conf
+Fourth = save the 20_nvidia.conf to xorg.conf.d folder reboot and your settings should be reapplied /etc/X11/xorg.conf.d/20_nvidia.conf (this needs to be done as root)
+
+----- ATI -----
+ATI fix screen tearing 
+
+lspci -nnk | grep -i -EA3 "3d|display|vga"
+
+ls -l /etc/X11
+
+mkdir ~/xorg-backup
+sudo mv -v /etc/X11/xorg.conf ~/xorg-backup/
+sudo mv -v /etc/X11/xorg.conf.d ~/xorg-backup/
+
+sudo nano /etc/X11/xorg.conf
+
+Section "Device"                 
+        Identifier "Radeon" 
+        Driver "radeon"                   
+    Option "TearFree" "on"
+EndSection
+
+
+sudo mkdir /etc/X11/xorg.conf.d
+sudo nano /etc/X11/xorg.conf.d/20-amdgpu.conf
+
+Section "Device"
+        Identifier "AMD"
+        Driver  "amdgpu"
+        Option "TearFree" "true"
+EndSection
+
 --------------------------------
 To change to the fish shell...
 
@@ -249,7 +284,7 @@ $ ranger --copy-config=all
 
 rc.conf only needs to include changes from the default file as both are loaded. For commands.py, if you do not include the whole file, put this line at the top: 
 ----------------------
-MX linux
+antiX linux
 
 sudo service --status-all
 
@@ -276,7 +311,7 @@ sudo service mpd reload
 sudo apt-get update
 ---------------------
 Update MX linux
-apt update && apt full-upgrade 
+sudo apt update && sudo apt upgrade 
 -----------------------
 To add user to group ==
 
